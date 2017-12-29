@@ -22,7 +22,7 @@ public class Event implements Comparable<Event> {
 		this.date = date;
 	}
 
-	public Event(String description, LocalDate date) {
+	Event(String description, LocalDate date) {
 		this.description = description;
 		this.date = date;
 	}

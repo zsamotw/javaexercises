@@ -8,7 +8,7 @@ public class Calendar {
 	
 	private LinkedList<Event> events = new LinkedList<>();
 
-	public Calendar() {
+	Calendar() {
 		
 	}
 	

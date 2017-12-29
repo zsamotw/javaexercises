@@ -8,11 +8,11 @@ import java.util.Scanner;
 
 public class TicTacToe {
 			
-	char[][] board = new char[4][4];	
-	Player player1;
-	Player player2;
+    private char[][] board = new char[4][4];
+	private Player player1;
+	private Player player2;
 	
-	public TicTacToe(String name1, String name2) {
+	TicTacToe(String name1, String name2) {
 		player1 = new Player(name1, 'X');
 		player2 = new Player(name2, 'O');
 		for(int i = 0; i <= 3; i++) {
@@ -123,7 +123,7 @@ class Move {
 	int x;
 	int y;
 	
-	public Move(int x, int y) {
+	Move(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -135,7 +135,7 @@ class Player {
 	char symbol;
 	
 
-	public Player(String name, char symbol) {
+	Player(String name, char symbol) {
 		this.name = name;
 		this.symbol = symbol;
 	}

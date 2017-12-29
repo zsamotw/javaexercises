@@ -10,7 +10,7 @@ public class Mechanism {
 	private Scanner scannerInt = new Scanner(System.in);
 	private Scanner scannerString = new Scanner(System.in);
 
-	public Mechanism(Calendar calendar) {
+	private Mechanism(Calendar calendar) {
 		this.calendar = calendar;
 	}
 
@@ -91,7 +91,7 @@ public class Mechanism {
 			int  day= scannerInt.nextInt();
 			LocalDate date = LocalDate.of(year, month, day);
 			Event[] events = calendar.dayEvents(date);
-			printEvents(events);;
+			printEvents(events);
 		mainMenu();
 	}
 
