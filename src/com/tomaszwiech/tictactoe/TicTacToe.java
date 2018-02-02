@@ -8,33 +8,35 @@ import java.util.Scanner;
 
 public class TicTacToe {
 			
-    private char[][] board = new char[4][4];
+    private char[][] board = new char[3][3];
 	private Player player1;
 	private Player player2;
+	private static final char x = 'X';
+	private static final char o = 'O';
 	
 	TicTacToe(String name1, String name2) {
-		player1 = new Player(name1, 'X');
-		player2 = new Player(name2, 'O');
-		for(int i = 0; i <= 3; i++) {
-			for(int j = 0; j <= 3; j++) {
+		player1 = new Player(name1, x);
+		player2 = new Player(name2, o);
+		for(int i = 0; i <= 2; i++) {
+			for(int j = 0; j <= 2; j++) {
 				board[i][j] = '-';
 			}
 		}
 	}
 
 	private void printBoard() {
-		for(int i = 1; i <= 3; i++) {
-			for(int j = 1; j <= 3; j++) {
+		for(int i = 0; i <= 2; i++) {
+			for(int j = 0; j <= 2; j++) {
 				System.out.print(board[i][j]);
-				if(j == 3) System.out.println();
+				if(j == 2) System.out.println();
 			}
 		}
 	}
 	
 	
 	private boolean checkMove(Move move) {
-		return board[move.x][move.y] != 'X' && 
-			    board[move.x][move.y] != 'O';
+		return board[move.x][move.y] != x &&
+			    board[move.x][move.y] != o;
 	}
 	
 	private void addMoveToBoard(Move move, Player player) {
@@ -42,7 +44,7 @@ public class TicTacToe {
 	}
 	
 	private boolean checkHorizontal(int x, Player player) {
-		for(int i = 1; i <= 3; i++) {
+		for(int i = 0; i <= 2; i++) {
 			if(board[x][i] != player.symbol) {
 				return false;
 			}
@@ -51,7 +53,7 @@ public class TicTacToe {
 	}
 
 	private boolean checkVertical(int x, Player player) {
-		for(int i = 1; i <= 3; i++) {
+		for(int i = 0; i <= 2; i++) {
 			if(board[i][x] != player.symbol) {
 				return false;
 			}
@@ -59,18 +61,14 @@ public class TicTacToe {
 		return true;
 	}
 	
-	/*
-	 * Można napisac algorytm bardziej zalezny od wybranego pola,ale wydaje mi sie ze przy tak malej 
-	 * planszy i sprawdzaniu dwoch przekatnych nie ma to wiekszego sensu. 
-	 */
 	
 	private boolean checkDiagonal(Player player) {
-		if((board[1][1] == player.symbol
-		   && board[2][2] == player.symbol
-		   && board[3][3] == player.symbol) ||
-		   (board[1][3] == player.symbol
-		   && board[2][2] == player.symbol
-		   && board[3][1] == player.symbol)) 
+		if((board[0][0] == player.symbol
+		   && board[1][1] == player.symbol
+		   && board[2][2] == player.symbol) ||
+		   (board[0][2] == player.symbol
+		   && board[1][1] == player.symbol
+		   && board[2][0] == player.symbol)) 
 		{
 			return true;
 		}
@@ -99,7 +97,7 @@ public class TicTacToe {
 		return checkWhoWon(move, player);
 	}
 	
-	void Game() {
+	void startGame() {
 		String winner = null;
 		while(true) {
 			winner = sequence(player1);
@@ -127,6 +125,13 @@ class Move {
 		this.x = x;
 		this.y = y;
 	}
+
+	boolean isCorrect() {
+		return x >= 0 &&
+				x <= 2 &&
+				y >= 0 &&
+				y <= 2;
+	}
 }
 
 class Player {
@@ -143,30 +148,22 @@ class Player {
 	Move setMove() {
 		int x = 0;
 		int y = 0;
-		while(!checkMove(x,y)) {
+		Move move = null;
+		do {
 		System.out.println("Podaj wspolrzedna y: ");
-		x = scanner.nextInt();
+		x = scanner.nextInt() - 1;
 		System.out.println("Podaj wspolrzedna x: ");
-		y = scanner.nextInt();
-		if(!checkMove(x,y)) {
+		y = scanner.nextInt() - 1;
+		move = new Move(x,y);
+		if(!move.isCorrect()) {
 			System.out.println("\n!!!Ruch poza polem gry. jeszcze raz podaj dane!!!\n");
 		}
-		}
-		return new Move(x,y);
-	}
-	
-	boolean checkMove(int x, int y) {
-		return x >= 1 &&
-				x <= 3 &&
-				y >= 1 &&
-				y <= 3;
+		} while(move.isCorrect());
+		return move;
 	}
 
-}
-
-class GameMe{
 	public static void main(String[] args) {
 		TicTacToe ttt = new TicTacToe("Player1", "Player2");
-		ttt.Game();
- 	}
+		ttt.startGame();
+	}
 }

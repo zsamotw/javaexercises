@@ -7,20 +7,14 @@ package com.tomaszwiech.sudokuchecker;
  */
 
 
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
 
-import java.io.File; 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class SudokuBoardChecker {
 	Workbook workbook;
@@ -136,16 +130,14 @@ public class SudokuBoardChecker {
 		int[][] boardArray = getArrayFromSheet(sheetIndex);
 		return (checkRows(boardArray) && checkColumns(boardArray) && checkSqueres(boardArray));
 	}
-}
 
-class App2 {
 	public static void main(String[] arg) {
 		try {
 			Workbook wb = WorkbookFactory.create(new File("sudoku.xlsx"));
 			SudokuBoardChecker sbc = new SudokuBoardChecker(wb);
 			for(int i = 0; i <= 6; i++) {
 				if(!sbc.verifyBoardStructure(i)) {
-					System.out.println("Sheet no: " + (i + 1) + " not completed");																																																																																			
+					System.out.println("Sheet no: " + (i + 1) + " not completed");
 				} else if(!sbc.verifyBoard(i)) {
 					System.out.println("Sheet no: " + (i + 1) + " incorrect");
 				} else {

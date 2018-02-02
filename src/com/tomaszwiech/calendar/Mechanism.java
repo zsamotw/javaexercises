@@ -1,6 +1,6 @@
 package com.tomaszwiech.calendar;
 
-import java.time.LocalDate; 
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
