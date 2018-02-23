@@ -1,4 +1,4 @@
-package com.tomaszwiech.tictactoe;
+//package com.tomaszwiech.tictactoe;
 
 /**
  * Program nie ma obslugi wyjatkow.
@@ -11,12 +11,12 @@ public class TicTacToe {
     private char[][] board = new char[3][3];
 	private Player player1;
 	private Player player2;
-	private static final char x = 'X';
-	private static final char o = 'O';
+	private static final char X = 'X';
+	private static final char O = 'O';
 	
 	TicTacToe(String name1, String name2) {
-		player1 = new Player(name1, x);
-		player2 = new Player(name2, o);
+		player1 = new Player(name1, X);
+		player2 = new Player(name2, O);
 		for(int i = 0; i <= 2; i++) {
 			for(int j = 0; j <= 2; j++) {
 				board[i][j] = '-';
@@ -35,8 +35,8 @@ public class TicTacToe {
 	
 	
 	private boolean checkMove(Move move) {
-		return board[move.x][move.y] != x &&
-			    board[move.x][move.y] != o;
+		return board[move.x][move.y] != X &&
+			    board[move.x][move.y] != O;
 	}
 	
 	private void addMoveToBoard(Move move, Player player) {
@@ -115,6 +115,11 @@ public class TicTacToe {
 		printBoard();
 
 	}
+
+    public static void main(String[] args) {
+        TicTacToe ttt = new TicTacToe("Player1", "Player2");
+        ttt.startGame();
+    }
 }
 
 class Move {
@@ -150,20 +155,16 @@ class Player {
 		int y = 0;
 		Move move = null;
 		do {
-		System.out.println("Podaj wspolrzedna y: ");
-		x = scanner.nextInt() - 1;
-		System.out.println("Podaj wspolrzedna x: ");
-		y = scanner.nextInt() - 1;
-		move = new Move(x,y);
-		if(!move.isCorrect()) {
-			System.out.println("\n!!!Ruch poza polem gry. jeszcze raz podaj dane!!!\n");
-		}
-		} while(move.isCorrect());
-		return move;
+		    System.out.println("Podaj wspolrzedna x: ");
+		    x = scanner.nextInt() - 1;
+            System.out.println("Podaj wspolrzedna y: ");
+            y = scanner.nextInt() - 1;
+            move = new Move(x,y);
+            if(!move.isCorrect()) {
+                System.out.println("\n!!!Ruch poza polem gry. jeszcze raz podaj dane!!!\n");
+            }
+        } while(!move.isCorrect());
+        return move;
 	}
 
-	public static void main(String[] args) {
-		TicTacToe ttt = new TicTacToe("Player1", "Player2");
-		ttt.startGame();
-	}
 }
